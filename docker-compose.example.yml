@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:16.1.1
+    environment:
+      TZ: America/Sao_Paulo
+      KEYCLOAK_ADMIN: 
+      KEYCLOAK_ADMIN_PASSWORD: 
+      DB_VENDOR: 
+      DB_ADDR: 
+      DB_DATABASE: 
+      DB_USER: 
+      DB_SCHEMA: 
+      DB_PASSWORD: 
+      DB_PORT: 5432
+      KC_HTTP_RELATIVE_PATH: /auth
+      # DEBUG: true
+      # DEBUG_PORT: '*:8787'
+      # KEYCLOAK_LOGLEVEL: DEBUG
+      # ROOT_LOGLEVEL: DEBUG
+      PROXY_ADDRESS_FORWARDING: 'true'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: 
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+    ports:
+      - '5432:5432'
+  
+  events-cqrs:
+    image: imageURL
+    # build:
+    #   context: . .
+    environment:
+      - NODE_ENV=
+      - DB_HOST=
+      - DB_USER=
+      - DB_PASS=
+      - DB_NAME=
+      - IDENTITYSERVER_REALM=
+      - IDENTITYSERVER_CLIENT_ID=
+      - IDENTITYSERVER_SECRET=
+      - IDENTITYSERVER_BASE_URL=
+      - JWT_PUBLIC_KEY=
+    ports:
+      - '3000:3000'
+    depends_on:
+      - keycloak
