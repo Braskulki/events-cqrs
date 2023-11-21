@@ -2,7 +2,7 @@ import { ListUsersParams, UserModel } from '@src/domain/models/user.model';
 import { IUserRepository } from '@src/infra/database/repositories/interfaces/user-repository.interface';
 import UserEntity from '../entities/user.entity';
 import { ReadDatabaseProvider, WriteDatabaseProvider } from '../connection';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { singleton } from 'tsyringe';
 
 @singleton()
@@ -29,8 +29,15 @@ export class UserRepository implements IUserRepository {
 
     return user as UserModel;
   }
+
   async find(data: ListUsersParams): Promise<UserModel[]> {
-    const user = await this.readRepository.find({ where: data });
+    const user = await this.readRepository.find({
+      where: {
+        ...(data.name && { name: ILike(`%${data.name}%`) }),
+        ...(data.email && { email: ILike(`%${data.email}%`) }),
+        ...(data.id && { id: data.id })
+      }
+    });
 
     return user as UserModel[];
   }
