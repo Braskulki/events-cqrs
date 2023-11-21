@@ -4,7 +4,7 @@ import { inject, singleton } from 'tsyringe';
 import { IUserRepository } from '@src/infra/database/repositories/interfaces/user-repository.interface';
 
 @singleton()
-export class ListUserUseCaseUseCase implements IListUserUseCase {
+export class ListUserUseCase implements IListUserUseCase {
   constructor(
     @inject('UserRepository') private readonly userRepository: IUserRepository
   ) {}

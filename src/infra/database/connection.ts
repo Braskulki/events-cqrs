@@ -8,10 +8,14 @@ export const WriteDatabaseProvider = new DataSource({
   maxQueryExecutionTime: 5000,
   uuidExtension: 'uuid-ossp',
 
-  host: process.env.DB_HOST_WRITE,
-  username: process.env.DB_USER_WRITE,
-  password: process.env.DB_PASS_WRITE,
-  database: process.env.DB_NAME_WRITE,
+  host: '127.0.0.1',
+  username: 'dbwrite',
+  password: '7XugK4rBzjolP9S',
+  database: 'dbwrite',
+  // host: process.env.DB_HOST_WRITE,
+  // username: process.env.DB_USER_WRITE,
+  // password: process.env.DB_PASS_WRITE,
+  // database: process.env.DB_NAME_WRITE,
 
   migrationsRun: true,
 
@@ -27,10 +31,14 @@ export const ReadDatabaseProvider = new DataSource({
   maxQueryExecutionTime: 5000,
   uuidExtension: 'uuid-ossp',
 
-  host: process.env.DB_HOST_READ,
-  username: process.env.DB_USER_READ,
-  password: process.env.DB_PASS_READ,
-  database: process.env.DB_NAME_READ,
+  host: '127.0.0.1',
+  username: 'dbread',
+  password: '7XugK4rBzjolP9S',
+  database: 'dbread',
+  // host: process.env.DB_HOST_READ,
+  // username: process.env.DB_USER_READ,
+  // password: process.env.DB_PASS_READ,
+  // database: process.env.DB_NAME_READ,
 
   migrationsRun: true,
 
